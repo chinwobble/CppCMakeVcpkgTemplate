@@ -57,7 +57,7 @@ string Sequence::reverseComplementHwy(string *origin)
 {
     auto length = origin->length();
     const auto sequence = reinterpret_cast<const uint8_t*>(&origin[0]);
-    uint8_t output[length];
+    uint8_t *output = new uint8_t[length];
     const auto transform = [](const auto d, auto output, const auto sequence) HWY_ATTR
     {
         const auto a = hn::Set(d, 65UL);

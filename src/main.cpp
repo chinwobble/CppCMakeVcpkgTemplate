@@ -29,7 +29,7 @@ namespace project
                 output = hn::IfThenElse(hn::Eq(sequence, g), c, output);
                 return output;
             };
-            uint8_t output[size];
+            uint8_t* output = new uint8_t[size];
 
             const hn::ScalableTag<uint8_t> d;
             Transform1(d, output, size, sequence, transform);
