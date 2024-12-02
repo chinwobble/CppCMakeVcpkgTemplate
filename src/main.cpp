@@ -1,5 +1,4 @@
 // main.cpp
-#include <sqlite3.h>
 #include <cstdio>
 #include <array>
 #include <fmt/core.h>
