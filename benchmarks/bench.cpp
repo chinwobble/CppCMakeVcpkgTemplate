@@ -1,5 +1,6 @@
 #include <benchmark/benchmark.h>
 #include "../src/sequence.h"
+
 static void BM_SequenceReverseSerial(benchmark::State& state) {
   // Perform setup here
   auto input = new std::string("AAAAAAAAAAAAAAAAAAAAAAAAGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");

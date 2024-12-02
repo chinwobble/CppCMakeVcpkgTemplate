@@ -1,6 +1,7 @@
 #include "sequence.h"
 #include <iostream>
 #include <hwy/contrib/algo/transform-inl.h>
+#include <hwy/aligned_allocator.h>
 
 namespace hn = hwy::HWY_NAMESPACE;
 
@@ -57,7 +58,8 @@ string Sequence::reverseComplementHwy(string *origin)
 {
     auto length = origin->length();
     const auto sequence = reinterpret_cast<const uint8_t*>(&origin[0]);
-    uint8_t *output = new uint8_t[length];
+    auto aligned = hwy::AllocateAligned<uint8_t>(length);
+    auto output = aligned.get();
     const auto transform = [](const auto d, auto output, const auto sequence) HWY_ATTR
     {
         const auto a = hn::Set(d, 65UL);
