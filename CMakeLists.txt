@@ -11,6 +11,9 @@ find_package(unofficial-sqlite3 CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 find_package(hwy CONFIG REQUIRED)
 find_package(benchmark CONFIG REQUIRED)
+if (MSVC)
+    add_compile_options(/arch:AVX2 /Gv)
+endif()
 
 # main target
 add_executable(bench)
