@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(cpp_template)
 ## HWY_AVX2 which is 256
-SET(GCC_COVERAGE_COMPILE_FLAGS "-march=haswell -maes")
+# SET(GCC_COVERAGE_COMPILE_FLAGS "-march=haswell -maes")
 ## HWY_AVX3 which is 512
 # SET(GCC_COVERAGE_COMPILE_FLAGS "-march=sapphirerapids")
 add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
