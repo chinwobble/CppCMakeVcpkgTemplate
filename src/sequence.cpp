@@ -75,8 +75,6 @@ string Sequence::reverseComplementHwy(string *origin)
     hn::Transform1(d, output, length, sequence, transform);
 
     auto retVal = reinterpret_cast<char *>(output);
-    hn::MaskedLoad
-    hn::Blocks(d);
     std::string reversed(retVal, length);
     return reversed;
 }
