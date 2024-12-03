@@ -4,6 +4,7 @@
   "dependencies": [
     "fmt",
     "boost-config",
+    "libdeflate",
     {
       "name": "highway",
       "features": [

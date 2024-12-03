@@ -14,6 +14,8 @@ if (MSVC)
     add_compile_options(/arch:AVX2 /Gv)
 endif()
 
+find_package(libdeflate CONFIG REQUIRED)
+
 # main target
 add_executable(bench)
 target_sources(
@@ -21,16 +23,43 @@ target_sources(
     benchmarks/bench.cpp
     src/read.cpp
     src/sequence.cpp
-)
+    )
 target_link_libraries(bench PRIVATE hwy::hwy benchmark::benchmark benchmark::benchmark_main)
 set_property(TARGET bench PROPERTY CXX_STANDARD 23)
 
 # main target
 add_executable(main)
-target_sources(main PRIVATE src/main.cpp)
-target_link_libraries(main PRIVATE fmt::fmt-header-only hwy::hwy)
+target_sources(
+    main PRIVATE
+    src/main.cpp
+    src/util.h
+    src/writer.h
+    src/writer.cpp
+    src/common.h
+    src/options.h
+    src/options.cpp
+    src/fastareader.h
+    src/fastareader.cpp
+    src/readpool.h
+    src/readpool.cpp
+    src/singleproducersingleconsumerlist.h
+    src/read.h
+    src/read.cpp
+    src/sequence.h
+    src/sequence.cpp
+)
+target_link_libraries(
+    main PRIVATE
+    fmt::fmt-header-only
+    hwy::hwy
+    $<IF:$<TARGET_EXISTS:libdeflate::libdeflate_shared>,libdeflate::libdeflate_shared,libdeflate::libdeflate_static>
+)
+target_link_options(
+    main
+    PRIVATE
+    -lpthread
+)
 set_property(TARGET main PROPERTY CXX_STANDARD 23)
-
 # tests target
 add_executable(tests)
 target_sources(tests PRIVATE src/test.cpp)

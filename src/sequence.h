@@ -7,6 +7,7 @@
 #include <iostream>
 #include <hwy/highway.h>
 
+namespace hn = hwy::HWY_NAMESPACE;
 using namespace std;
 
 class Sequence{
@@ -23,13 +24,7 @@ public:
     static string reverseComplement(string* origin);
     static string reverseComplementHwy(string* origin);
 
-private:
-    static void ReverseComplement(
-            const uint8_t *HWY_RESTRICT sequence,
-            const size_t size,
-            uint8_t *HWY_RESTRICT output_array);
 public:
     string*  mStr;
 };
-
 #endif
