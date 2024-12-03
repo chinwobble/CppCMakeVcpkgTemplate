@@ -23,7 +23,7 @@ target_sources(
     benchmarks/bench.cpp
     src/read.cpp
     src/sequence.cpp
-    )
+)
 target_link_libraries(bench PRIVATE hwy::hwy benchmark::benchmark benchmark::benchmark_main)
 set_property(TARGET bench PROPERTY CXX_STANDARD 23)
 
@@ -31,22 +31,22 @@ set_property(TARGET bench PROPERTY CXX_STANDARD 23)
 add_executable(main)
 target_sources(
     main PRIVATE
-    src/main.cpp
-    src/util.h
-    src/writer.h
-    src/writer.cpp
     src/common.h
+    src/fastareader.cpp
+    src/fastareader.h
+    src/main.cpp
     src/options.h
     src/options.cpp
-    src/fastareader.h
-    src/fastareader.cpp
-    src/readpool.h
-    src/readpool.cpp
-    src/singleproducersingleconsumerlist.h
-    src/read.h
     src/read.cpp
-    src/sequence.h
+    src/read.h
+    src/readpool.cpp
+    src/readpool.h
     src/sequence.cpp
+    src/sequence.h
+    src/singleproducersingleconsumerlist.h
+    src/util.h
+    src/writer.cpp
+    src/writer.h
 )
 target_link_libraries(
     main PRIVATE
