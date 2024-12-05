@@ -97,6 +97,7 @@ jobs:
           cmake --preset ninja-multi-vcpkg
       - name: lint
         uses: jidicula/clang-format-action@v4.14.0
+        if: runner.os != 'Windows'
         with:
           clang-format-version: '18'
           check-path: 'src'
