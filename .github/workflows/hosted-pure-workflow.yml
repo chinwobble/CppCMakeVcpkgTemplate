@@ -95,7 +95,6 @@ jobs:
       - name: Restore from cache the dependencies and generate project files
         run: |
           cmake --preset ninja-multi-vcpkg
-              - name: Run clang-format style check for C/C++/Protobuf programs.
       - name: lint
         uses: jidicula/clang-format-action@v4.14.0
         with:
