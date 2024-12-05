@@ -98,7 +98,7 @@ jobs:
       - name: lint
         uses: jidicula/clang-format-action@v4.14.0
         with:
-          clang-format-version: '13'
+          clang-format-version: '18'
           check-path: 'src'
 
       # Build (Release configuration only) the whole project with Ninja (which is spawn by CMake).
