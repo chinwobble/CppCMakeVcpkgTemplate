@@ -95,7 +95,7 @@ jobs:
       - name: Restore from cache the dependencies and generate project files
         run: |
           cmake --preset ninja-multi-vcpkg
-      - name: lint
+      - name: check format
         uses: jidicula/clang-format-action@v4.14.0
         if: runner.os != 'Windows'
         with:
@@ -110,6 +110,16 @@ jobs:
       - name: Build (Release configuration)
         run: |
           cmake --build --preset ninja-vcpkg-release
+
+      - name: clang-tidy
+        uses: HorstBaerbel/action-clang-tidy@1.2
+        if: runner.os != 'Windows'
+        with:
+          scandir: 'src'
+          builddir: 'builds'
+          excludedirs: ''
+          extensions: 'c,h,C,H,cpp,hpp,cc,hh,c++,h++,cxx,hxx'
+          cmakeoptions: ''
 
       # Test the whole project with CTest, again Release configuration only.
       - name: Test (Release configuration)
