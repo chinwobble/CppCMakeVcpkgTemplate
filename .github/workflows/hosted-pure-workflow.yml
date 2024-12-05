@@ -83,10 +83,19 @@ jobs:
           key: |
             ${{ hashFiles( '.git/modules/vcpkg/HEAD' )}}
 
+      - name: clang-tidy
+        uses: HorstBaerbel/action-clang-tidy@1.2
+        if: runner.os != 'Windows'
+        with:
+          scandir: '.'
+          builddir: 'builds/ninja-multi-vcpkg'
+          excludedirs: ''
+          extensions: 'c,h,C,H,cpp,hpp,cc,hh,c++,h++,cxx,hxx'
+          cmakeoptions: ''
+
       # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly.
       # As used here the Developer Command Prompt created is targeting x64 and using the default the Windows SDK.
       - uses: ilammy/msvc-dev-cmd@v1
-
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install
       # the dependencies as specified in vcpkg.json. Note that the vcpkg's toolchain is specified
       # in the CMakePresets.json file.
@@ -94,13 +103,15 @@ jobs:
       # store the built packages artifacts.
       - name: Restore from cache the dependencies and generate project files
         run: |
-          cmake --preset ninja-multi-vcpkg
+          cmake --preset ninja-multi-vcpkg -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
       - name: check format
         uses: jidicula/clang-format-action@v4.14.0
         if: runner.os != 'Windows'
         with:
           clang-format-version: '18'
           check-path: 'src'
+
 
       # Build (Release configuration only) the whole project with Ninja (which is spawn by CMake).
       #
@@ -110,16 +121,6 @@ jobs:
       - name: Build (Release configuration)
         run: |
           cmake --build --preset ninja-vcpkg-release
-
-      - name: clang-tidy
-        uses: HorstBaerbel/action-clang-tidy@1.2
-        if: runner.os != 'Windows'
-        with:
-          scandir: 'src'
-          builddir: 'builds'
-          excludedirs: ''
-          extensions: 'c,h,C,H,cpp,hpp,cc,hh,c++,h++,cxx,hxx'
-          cmakeoptions: ''
 
       # Test the whole project with CTest, again Release configuration only.
       - name: Test (Release configuration)
