@@ -30,6 +30,10 @@ build: builds/.ran-cmake
 test: builds/.ran-cmake
 	ctest --preset test-release
 
+format:
+	find src -name "*.cpp" | xargs clang-format -i
+	find src -name "*.h" | xargs clang-format -i
+
 lint: builds/.ran-cmake
 	python3 scripts/run-clang-tidy.py -p builds/ninja-multi-vcpkg
 
@@ -40,4 +44,4 @@ builds/.ran-cmake: vcpkg/.vcpkg-root
 	$(CMAKE) -B builds/ninja-multi-vcpkg -G "Ninja Multi-Config" $(CMAKE_FLAGS) $(CMAKE_EXTRA_FLAGS) -S .
 	$(TOUCH) $@
 
-.PHONY: lint build test
+.PHONY: lint build test format
