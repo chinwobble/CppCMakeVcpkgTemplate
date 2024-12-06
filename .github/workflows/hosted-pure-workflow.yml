@@ -103,6 +103,7 @@ jobs:
           check-path: 'src'
 
       - name: run-clang-tidy
+        if: runner.os == 'Linux'
         run: |
           python3 ./scripts/run-clang-tidy.py -p builds/ninja-multi-vcpkg
 
