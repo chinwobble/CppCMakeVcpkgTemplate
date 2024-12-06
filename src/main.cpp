@@ -7,6 +7,6 @@
 // main function!
 int main() {
   fmt::print("Hello, world!\n");
-  printf("%s\n", sqlite3_libversion());
+  fmt::print("{}\n", sqlite3_libversion());
   return 0;
 }

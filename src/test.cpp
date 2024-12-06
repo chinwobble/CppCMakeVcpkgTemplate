@@ -1,11 +1,11 @@
 // test.cpp
 #include <fmt/core.h>
 #include <sqlite3.h>
-#include <stdio.h>
+#include <cstdio>
 
 // main function!
 int main() {
   fmt::print("test!\n");
-  printf("%s\n", sqlite3_libversion());
+  fmt::print("{}\n", sqlite3_libversion());
   return 0;
 }
