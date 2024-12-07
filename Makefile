@@ -27,6 +27,9 @@ all: build
 build: builds/.ran-cmake
 	cmake --build --preset ninja-vcpkg-release
 
+clean:
+	$(RM) builds
+
 test: builds/.ran-cmake
 	ctest --preset test-release
 
@@ -34,14 +37,11 @@ format:
 	find src -name "*.cpp" | xargs clang-format -i
 	find src -name "*.h" | xargs clang-format -i
 
-lint: builds/.ran-cmake
-	run-clang-tidy -p builds/ninja-multi-vcpkg
-
 vcpkg/.vcpkg-root:
 	git submodule update --init --recursive
 
-builds/.ran-cmake: vcpkg/.vcpkg-root
+builds/.ran-cmake: vcpkg/.vcpkg-root CMakeLists.txt CMakePresets.json
 	$(CMAKE) -B builds/ninja-multi-vcpkg -G "Ninja Multi-Config" $(CMAKE_FLAGS) $(CMAKE_EXTRA_FLAGS) -S .
 	$(TOUCH) $@
 
-.PHONY: lint build test format
+.PHONY: lint build test format clean

@@ -102,11 +102,6 @@ jobs:
           clang-format-version: '18'
           check-path: 'src'
 
-      - name: run-clang-tidy
-        if: runner.os == 'Linux'
-        run: |
-          run-clang-tidy -p builds/ninja-multi-vcpkg
-
       # Build (Release configuration only) the whole project with Ninja (which is spawn by CMake).
       #
       # Note: if the preset misses the "configuration", it is possible to explicitly select the

@@ -2,6 +2,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(cpp_template)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_CLANG_TIDY clang-tidy-18)
 
 # Find dependencies provided by vcpkg (via vcpkg.cmake)
 find_package(unofficial-sqlite3 CONFIG REQUIRED)
