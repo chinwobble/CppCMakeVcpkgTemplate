@@ -93,7 +93,7 @@ jobs:
       # store the built packages artifacts.
       - name: Restore from cache the dependencies and generate project files
         run: |
-          cmake --preset ninja-multi-vcpkg -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+          cmake --preset ninja-multi-vcpkg
 
       - name: check format
         uses: jidicula/clang-format-action@v4.14.0
