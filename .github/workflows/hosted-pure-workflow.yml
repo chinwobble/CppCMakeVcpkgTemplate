@@ -105,7 +105,7 @@ jobs:
       - name: run-clang-tidy
         if: runner.os == 'Linux'
         run: |
-          python3 ./scripts/run-clang-tidy.py -p builds/ninja-multi-vcpkg
+          run-clang-tidy -p builds/ninja-multi-vcpkg
 
       # Build (Release configuration only) the whole project with Ninja (which is spawn by CMake).
       #

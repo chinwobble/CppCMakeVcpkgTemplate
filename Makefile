@@ -35,7 +35,7 @@ format:
 	find src -name "*.h" | xargs clang-format -i
 
 lint: builds/.ran-cmake
-	python3 scripts/run-clang-tidy.py -p builds/ninja-multi-vcpkg
+	run-clang-tidy -p builds/ninja-multi-vcpkg
 
 vcpkg/.vcpkg-root:
 	git submodule update --init --recursive
