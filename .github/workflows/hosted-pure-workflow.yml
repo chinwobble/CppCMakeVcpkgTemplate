@@ -88,12 +88,10 @@ jobs:
         run: |
           cmake --preset ninja-multi-vcpkg
 
-      - name: check format
-        uses: jidicula/clang-format-action@v4.14.0
+      - name: Restore from cache the dependencies and generate project files
         if: runner.os == 'Linux'
-        with:
-          clang-format-version: '18'
-          check-path: 'src'
+        run: |
+          cmake --workflow --preset check-format
 
       # Build (Release configuration only) the whole project with Ninja (which is spawn by CMake).
       #
