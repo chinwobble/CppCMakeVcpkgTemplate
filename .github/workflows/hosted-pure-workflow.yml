@@ -88,7 +88,7 @@ jobs:
         run: |
           cmake --preset ninja-multi-vcpkg
 
-      - name: Restore from cache the dependencies and generate project files
+      - name: check-format
         if: runner.os == 'Linux'
         run: |
           cmake --workflow --preset check-format
