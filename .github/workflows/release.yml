@@ -1,0 +1,36 @@
+name: release
+on:
+  push:
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
+
+jobs:
+  job:
+    name: ${{ matrix.os }}-${{ github.workflow }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15, windows-2022]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      # Setup the build machine with the most recent versions of CMake and Ninja. Both are cached if not already: on subsequent runs both will be quickly restored from GitHub cache service.
+      - uses: lukka/get-cmake@latest
+      - name: Restore from cache the dependencies and generate project files
+        run: |
+          cmake --preset ninja-multi-vcpkg
+
+      - name: Build (Release configuration)
+        run: |
+          cmake --build --preset ninja-vcpkg-release
+
+      # Test the whole project with CTest, again Release configuration only.
+      - name: Test (Release configuration)
+        run: |
+          ctest --preset test-release
+      - name: release
+        run: |
+          gh release create ${{ github.ref }}
