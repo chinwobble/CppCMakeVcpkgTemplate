@@ -3,7 +3,7 @@
   "version-string": "latest",
   "dependencies": [
     "fmt",
-    "boost-config",
-    "sqlite3"
+    "highway",
+    "gtest"
   ]
 }

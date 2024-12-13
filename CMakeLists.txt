@@ -7,29 +7,60 @@ if(NOT APPLE)
 endif()
 
 # Find dependencies provided by vcpkg (via vcpkg.cmake)
-find_package(unofficial-sqlite3 CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
+find_package(GTest CONFIG REQUIRED)
 
-set(
+file(GLOB_RECURSE
     CPP_TEMPLATE_SOURCES
-    src/main.cpp
+    CONFIGURE_DEPENDS
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
 )
-set(
+
+file(GLOB_RECURSE
     CPP_TEMPLATE_TEST_SOURCES
-    src/test.cpp
+    CONFIGURE_DEPENDS
+    ${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp
 )
 
 # main target
 add_executable(main ${CPP_TEMPLATE_SOURCES})
-target_link_libraries(main PRIVATE unofficial::sqlite3::sqlite3 fmt::fmt-header-only)
+target_precompile_headers(main
+  PRIVATE
+    <string>
+    <fmt/core.h>
+    <array>
+    <immintrin.h>
+)
+target_link_libraries(main PRIVATE fmt::fmt-header-only)
 set_property(TARGET main PROPERTY CXX_STANDARD 23)
 
 # tests target
-add_executable(tests ${CPP_TEMPLATE_TEST_SOURCES})
-target_link_libraries(tests PRIVATE unofficial::sqlite3::sqlite3 fmt::fmt-header-only)
-set_property(TARGET tests PROPERTY CXX_STANDARD 23)
 enable_testing()
-add_test(tests tests)
+# if (BUILD_TESTING)
+foreach (TESTFILE IN LISTS CPP_TEMPLATE_TEST_SOURCES)
+
+get_filename_component(TESTNAME ${TESTFILE} NAME_WE)
+add_executable(${TESTNAME} ${TESTFILE})
+set_property(TARGET ${TESTNAME} PROPERTY CXX_STANDARD 23)
+    target_link_libraries(${TESTNAME} PRIVATE fmt::fmt-header-only
+        GTest::gtest
+        GTest::gtest_main)
+    set_property(TARGET ${TESTNAME} PROPERTY CXX_STANDARD 23)
+    add_test(${TESTNAME} ${TESTNAME})
+
+    target_precompile_headers(${TESTNAME}
+    PRIVATE
+        <string>
+        <fmt/core.h>
+        <gtest/gtest.h>
+        <array>
+        <immintrin.h>
+    )
+endforeach()
+# endif()
+
+# add_test(tests tests)
+
 
 add_custom_target(
     check-format
