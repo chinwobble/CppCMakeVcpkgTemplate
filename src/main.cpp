@@ -2,7 +2,6 @@
 #include <fmt/core.h>
 #include <sqlite3.h>
 
-#include <cstdio>
 
 // main function!
 int main() {

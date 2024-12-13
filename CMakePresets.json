@@ -31,16 +31,9 @@
             "configuration": "Release"
         },
         {
-            "name": "ninja-vcpkg",
-            "configurePreset": "ninja-multi-vcpkg",
-            "displayName": "Build",
-            "description": "Build with Ninja/vcpkg",
-            "hidden": true
-        },
-        {
             "name": "ninja-vcpkg-check-format",
             "configurePreset": "ninja-multi-vcpkg",
-            "displayName": "Build",
+            "displayName": "check format",
             "targets": [
                 "check-format"
             ],
@@ -49,7 +42,7 @@
         {
             "name": "ninja-vcpkg-format",
             "configurePreset": "ninja-multi-vcpkg",
-            "displayName": "Build",
+            "displayName": "format",
             "targets": [
                 "format"
             ],
