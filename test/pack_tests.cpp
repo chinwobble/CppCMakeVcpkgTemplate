@@ -8,6 +8,7 @@ TEST(PackTests, Teqi) {
   __m128i result = _mm_packs_epi32(a, b);
   short resultArray[]{0, 0, 0, 0, 0, 0, 0, 0};
   _mm_storeu_si128((__m128i*)resultArray, result);
+
   EXPECT_EQ(resultArray[0], 3000);
   EXPECT_EQ(resultArray[1], 2000);
   EXPECT_EQ(resultArray[2], 1000);

@@ -5,6 +5,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 if(NOT APPLE)
     # set(CMAKE_CXX_CLANG_TIDY clang-tidy)
 endif()
+add_compile_options(-march=haswell -maes)
+
 
 # Find dependencies provided by vcpkg (via vcpkg.cmake)
 find_package(fmt CONFIG REQUIRED)
@@ -39,9 +41,9 @@ enable_testing()
 # if (BUILD_TESTING)
 foreach (TESTFILE IN LISTS CPP_TEMPLATE_TEST_SOURCES)
 
-get_filename_component(TESTNAME ${TESTFILE} NAME_WE)
-add_executable(${TESTNAME} ${TESTFILE})
-set_property(TARGET ${TESTNAME} PROPERTY CXX_STANDARD 23)
+    get_filename_component(TESTNAME ${TESTFILE} NAME_WE)
+    add_executable(${TESTNAME} ${TESTFILE})
+    set_property(TARGET ${TESTNAME} PROPERTY CXX_STANDARD 23)
     target_link_libraries(${TESTNAME} PRIVATE fmt::fmt-header-only
         GTest::gtest
         GTest::gtest_main)
