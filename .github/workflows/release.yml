@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-15, windows-2022]
+        os: [ubuntu-24.04, macos-14, macos-15]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,7 +40,7 @@ jobs:
           TAG_NAME=${TAG_NAME#refs/tags/}
 
           OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-          FILE=main_$OS_$(arch)
+          FILE=main_${OS}_$(arch)
           gh release create $TAG_NAME || :
           cp builds/ninja-multi-vcpkg/Release/main $FILE
           gh release upload $TAG_NAME $FILE
