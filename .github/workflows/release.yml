@@ -39,7 +39,7 @@ jobs:
           TAG_NAME=${{ github.ref }}
           TAG_NAME=${TAG_NAME#refs/tags/}
 
-          OS=uname -s | tr '[:upper:]' '[:lower:]'
+          OS=$(uname -s | tr '[:upper:]' '[:lower:]')
           FILE=main_$OS_$(arch)
           gh release create $TAG_NAME || :
           cp builds/ninja-multi-vcpkg/Release/main $FILE
