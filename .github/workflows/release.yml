@@ -43,4 +43,4 @@ jobs:
           FILE=main_$OS_$(arch)
           gh release create $TAG_NAME || :
           cp builds/ninja-multi-vcpkg/Release/main $FILE
-          gh release uplaod $TAG_NAME $FILE
+          gh release upload $TAG_NAME $FILE
